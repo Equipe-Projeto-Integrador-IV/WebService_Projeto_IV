@@ -1,11 +1,16 @@
 package com.projetoic.senac.model;
 
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.Time;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,13 +25,20 @@ import lombok.Setter;
 public class OrdemServico {
 	
 	@Id
-	private Long id;
+	@NotNull(message="{campo.id.obrigatorio}")
+	private Long id_os;
 	
 	@Column
-	private Date dataHoraInicio;
+	private String data_inicio;
 	
 	@Column
-	private Date dataHoraTermino;
+	private String data_fim;
+	
+	@Column
+	private String hora_inicio;
+	
+	@Column
+	private String hora_fim;
 	
 	@Column
 	private String status;
@@ -35,19 +47,23 @@ public class OrdemServico {
 	private Float valor;
 	
 	@ManyToOne
-	@JoinColumn(name="id_agendamento")
+	@NotNull(message="{campo.fk.obrigatorio}")
+	@JoinColumn(name="id_agendamento_fk")
 	private Agendamento agendamento;
 	
 	@ManyToOne
-	@JoinColumn(name="id_servico")
+	@NotNull(message="{campo.fk.obrigatorio}")
+	@JoinColumn(name="id_servico_fk")
 	private Servico servico;
 	
 	@ManyToOne
-	@JoinColumn(name="id_funcionario")
-	private Funcionario resOS;
+	@NotNull(message="{campo.fk.obrigatorio}")
+	@JoinColumn(name="cpf_funcionario_fk_os")
+	private Funcionario respOS;
 	
 	@ManyToOne
-	@JoinColumn(name="id_funcionario")
+	@NotNull(message="{campo.fk.obrigatorio}")
+	@JoinColumn(name="cpf_funcionario_fk_servico")
 	private Funcionario execServico;
 	
 	

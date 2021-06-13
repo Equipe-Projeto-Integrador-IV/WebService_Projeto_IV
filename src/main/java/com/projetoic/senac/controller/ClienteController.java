@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.projetoic.senac.model.Cliente;
 import com.projetoic.senac.model.repository.ClienteRepository;
 
+
 @RestController
 @RequestMapping("/api/cliente")
 public class ClienteController {
@@ -28,6 +29,8 @@ public class ClienteController {
 		this.repository = repository;
 	}
 	
+	
+	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente salvar(@RequestBody @Valid Cliente cliente) {
@@ -35,21 +38,21 @@ public class ClienteController {
 		return repository.save(cliente);
 	}
 	
-	@GetMapping("{cpf}")
-	public Cliente acharPorId(@PathVariable Long cpf) {
+	@GetMapping("{cpf_cliente}")
+	public Cliente acharPorId(@PathVariable Long cpf_cliente) {
 		
 		return repository
-				.findById(cpf)
+				.findById(cpf_cliente)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 	}
 	
 	
-	@DeleteMapping("{cpf}")
+	@DeleteMapping("{cpf_cliente}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deletarCliente(@PathVariable Long cpf) {
+	public void deletarCliente(@PathVariable Long cpf_cliente) {
 		
 		repository
-		.findById(cpf)
+		.findById(cpf_cliente)
 		.map( cliente -> {
 			repository.delete(cliente);
 			return Void.TYPE;
@@ -58,14 +61,14 @@ public class ClienteController {
 	}
 	
 	
-	@PutMapping("{cpf}")
+	@PutMapping("{cpf_cliente}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void atualizarCliente(@PathVariable Long cpf, @RequestBody @Valid Cliente clienteAtualizado) {
+	public void atualizarCliente(@PathVariable Long cpf_cliente, @RequestBody @Valid Cliente clienteAtualizado) {
 		
 		repository
-		.findById(cpf)
+		.findById(cpf_cliente)
 		.map( cliente -> {
-			clienteAtualizado.getCpf();
+			clienteAtualizado.getCpf_cliente();
 			return repository.save(clienteAtualizado);
 		})
 		.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));

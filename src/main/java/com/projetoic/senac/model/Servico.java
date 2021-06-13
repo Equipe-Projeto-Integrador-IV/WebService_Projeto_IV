@@ -1,8 +1,13 @@
 package com.projetoic.senac.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,14 +22,20 @@ import lombok.Setter;
 public class Servico {
 	
 	@Id
-	private Long id;
-	@Column
+	@NotNull(message="{campo.id.obrigatorio}")
+	private Long id_servico;
+	
+	@Column(nullable = false, length = 150)
+	@NotEmpty(message = "{campo.nome.obrigatorio}")
 	private String nome;
-	@Column
+	
+	@Column(nullable = false, length = 150)
 	private String descricao;
+	
 	@Column
-	private Float precoCusto;
+	private BigDecimal preco_custo;
+	
 	@Column
-	private Float precoVenda;
+	private BigDecimal preco_venda;
 
 }

@@ -32,6 +32,7 @@ public class OrdemServicoController {
 		this.repository = repository;
 	}
 	
+	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public OrdemServico salvarOrdemServico(@RequestBody @Valid OrdemServico ordemServico) {
@@ -39,20 +40,20 @@ public class OrdemServicoController {
 		return repository.save(ordemServico);
 	}
 	
-	@GetMapping("{id}")
-	public OrdemServico acharPorId(@PathVariable Long id) {
+	@GetMapping("{id_os}")
+	public OrdemServico acharPorId(@PathVariable Long id_os) {
 		
 		return repository
-				.findById(id)
+				.findById(id_os)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ordem de Serviço não encontrado"));
 	}
 	
-	@DeleteMapping("{id}")
+	@DeleteMapping("{id_os}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deletarOrdemServico(@PathVariable Long id) {
+	public void deletarOrdemServico(@PathVariable Long id_os) {
 		
 		repository
-		.findById(id)
+		.findById(id_os)
 		.map( ordemServico -> {
 			repository.delete(ordemServico);
 			return Void.TYPE;
@@ -61,14 +62,14 @@ public class OrdemServicoController {
 	}
 	
 	
-	@PutMapping("{id}")
+	@PutMapping("{id_os}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void atualizarOrdemServico(@PathVariable Long id, @RequestBody @Valid OrdemServico ordemServicoAtualizado) {
+	public void atualizarOrdemServico(@PathVariable Long id_os, @RequestBody @Valid OrdemServico ordemServicoAtualizado) {
 		
 		repository
-		.findById(id)
+		.findById(id_os)
 		.map( ordemServico -> {
-			ordemServicoAtualizado.getId();
+			ordemServicoAtualizado.getId_os();
 			return repository.save(ordemServicoAtualizado);
 		})
 		.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ordem de Serviço não encontrado"));

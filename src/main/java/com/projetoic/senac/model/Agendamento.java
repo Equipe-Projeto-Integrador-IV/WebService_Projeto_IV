@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,42 +25,48 @@ import lombok.Setter;
 public class Agendamento {
 	
 	@Id
+	@NotNull(message="{campo.id.obrigatorio}")
 	private Long id;
 	
 	@Column
-	private LocalDate data;
+	private String data;
+	//private LocalDate data;
 	
 	@Column
-	private LocalTime hora;
+	private String hora;
+	//private LocalTime hora;
 	
-	@Column
+	@Column(nullable = false, length = 20)
 	private String status;
 	
-	@Column
-	private String observacao;
+	@Column(nullable = false, length = 150)
+	private String obs;
 	
 	@ManyToOne
-	@JoinColumn(name="cpf_cliente")
+	@NotNull(message="{campo.fk.obrigatorio}")
+	@JoinColumn(name="cpf_cliente_fk_agendamento")
 	private Cliente cliente;
 	
 	@ManyToOne
-	@JoinColumn(name="cpf_funcionario")
+	@NotNull(message="{campo.fk.obrigatorio}")
+	@JoinColumn(name="cpf_funcionario_fk_agendamento")
 	private Funcionario respAgendamento;
 	
 	@ManyToOne
-	@JoinColumn(name="id_servico")
+	@NotNull(message="{campo.fk.obrigatorio}")
+	@JoinColumn(name="id_servico_fk_agendamento")
 	private Servico servico;
 	
+	
+	/*
 	@PrePersist
 	public void prePersistData() {
 		
 		setData(LocalDate.now());
-	}
-	
-	
-	public void prePersistHora() {
-		
 		setHora(LocalTime.now());
 	}
+	*/
+	
+	
 
 }

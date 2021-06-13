@@ -63,7 +63,7 @@ public class FuncionarioController {
 		repository
 		.findById(cpf)
 		.map( funcionario -> {
-			funcionarioAtualizado.getCpf();
+			funcionarioAtualizado.getCpf_funcionario();
 			return repository.save(funcionarioAtualizado);
 		})
 		.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Funcionário não encontrado"));

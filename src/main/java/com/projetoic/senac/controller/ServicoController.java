@@ -64,7 +64,7 @@ public class ServicoController {
 		repository
 		.findById(id)
 		.map( funcionario -> {
-			servicoAtualizado.getId();
+			servicoAtualizado.getId_servico();
 			return repository.save(servicoAtualizado);
 		})
 		.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Serviço não encontrado"));

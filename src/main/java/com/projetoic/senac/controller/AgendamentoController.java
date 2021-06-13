@@ -45,7 +45,7 @@ public class AgendamentoController {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Agendamento não encontrado"));
 	}
 	
-	@DeleteMapping("{id}")
+	@DeleteMapping("{id_agendamento}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletarAgendamento(@PathVariable Long id) {
 		
@@ -59,12 +59,12 @@ public class AgendamentoController {
 	}
 	
 	
-	@PutMapping("{id}")
+	@PutMapping("{id_agendamento}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void atualizarAgendamento(@PathVariable Long id, @RequestBody @Valid Agendamento agendamentoAtualizado) {
+	public void atualizarAgendamento(@PathVariable Long id_agendamento, @RequestBody @Valid Agendamento agendamentoAtualizado) {
 		
 		repository
-		.findById(id)
+		.findById(id_agendamento)
 		.map( agendamento -> {
 			agendamentoAtualizado.getId();
 			return repository.save(agendamentoAtualizado);
